@@ -1,5 +1,8 @@
 # **Enemy Avoidance System - README**
 
+Link to game:
+https://gman17.itch.io/week-62
+
 ## **Overview**  
 This system makes enemies move **away from the player** when inside a specified **radius**. Movement is restricted to **allowed tiles** on the **tilemap**, and enemies prioritize avoidance points based on their **relative position** (left or right) to the **player**.
 
