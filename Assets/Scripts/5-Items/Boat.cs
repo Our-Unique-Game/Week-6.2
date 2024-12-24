@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq; // Added for LINQ operations (Concat, Distinct)
 
 /**
  * This component manages the boat's interactions.
  * Handles player pickup, updates allowed tiles for movement, and ensures compatibility with the game system.
  */
 public class Boat : MonoBehaviour {
-    [SerializeField] AllowedTiles allowedTiles = null;
+    [SerializeField] AllowedTiles allowedTiles = null; // Reference to the Boat's AllowedTiles
     private bool isPickedUp = false; // Tracks whether the boat is picked up.
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -26,9 +27,10 @@ public class Boat : MonoBehaviour {
     }
 
     private void UpdateAllowedTilesForBoat() {
-        TileBase[] waterTiles = { /* Add specific water tiles here */ };
-
         if (allowedTiles != null) {
+            // Define water tiles allowed for the boat
+            TileBase[] waterTiles = { /* Add specific water tiles here */ };
+
             // Get the current list of allowed tiles
             TileBase[] currentTiles = allowedTiles.Get();
 
@@ -55,9 +57,13 @@ public class Boat : MonoBehaviour {
     }
 
     private void ResetAllowedTiles() {
-        TileBase[] defaultTiles = allowedTiles.Get();
         if (allowedTiles != null) {
+            // Reset allowed tiles to their default values
+            TileBase[] defaultTiles = allowedTiles.Get();
             allowedTiles.UpdateAllowedTiles(defaultTiles);
             Debug.Log("Allowed tiles reset after boat drop.");
         } else {
-            Debug.LogError("AllowedTiles refer
+            Debug.LogError("AllowedTiles reference is null!");
+        }
+    }
+}

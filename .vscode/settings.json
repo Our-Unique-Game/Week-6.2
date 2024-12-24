@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Week-5.sln"
+    "dotnet.defaultSolution": "Week-6.1.sln"
 }

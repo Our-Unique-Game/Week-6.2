@@ -39,10 +39,8 @@ public class KeyboardMoverByTile : MonoBehaviour {
         TileBase tileOnNewPosition = TileOnPosition(newPosition);
 
         if (currentAllowedTiles.Contains(tileOnNewPosition)) {
-            Debug.Log($"Moving to allowed tile: {tileOnNewPosition?.name ?? "null"}");
             transform.position = newPosition;
         } else {
-            Debug.Log($"Cannot move to tile: {tileOnNewPosition?.name ?? "null"}");
         }
     }
 
@@ -185,4 +183,12 @@ public class KeyboardMoverByTile : MonoBehaviour {
 
         return transform.position + move;
     }
+
+    /**
+    * Add this method to expose the player's position.
+    */
+    public Vector3 GetPlayerPosition() {
+        return transform.position;
+    }
+
 }

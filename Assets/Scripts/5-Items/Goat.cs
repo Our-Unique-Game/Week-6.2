@@ -82,6 +82,7 @@ public class Goat : MonoBehaviour {
         } else {
             Debug.Log("Goat dropped via debug button.");
             ResetAllowedTiles();
+            //hello
         }
     }
 }
