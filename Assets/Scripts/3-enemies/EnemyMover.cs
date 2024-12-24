@@ -7,6 +7,10 @@ public class EnemyMover : MonoBehaviour {
     [SerializeField] private AllowedTiles allowedTiles; // Allowed tiles
     [SerializeField] private float speed = 3f; // Movement speed
 
+    [Header("Movement Parameters")]
+    [SerializeField] private float stoppingDistance = 0.01f; // Distance to stop at target
+    [SerializeField] private bool logMovement = true; // Enable/disable logs for debugging
+
     private Vector3 targetPosition; // The target position to move toward
     private bool isMoving = false; // Controls whether the enemy is allowed to move
 
@@ -21,10 +25,10 @@ public class EnemyMover : MonoBehaviour {
         if (IsTileAllowed(newTarget)) { // Validate allowed tile
             targetPosition = newTarget;
             isMoving = true; // Enable movement when valid target is set
-            Debug.Log($"Enemy {name} target set to: {newTarget}");
+            Log($"Enemy {name} target set to: {newTarget}");
         } else {
             isMoving = false; // Disable movement if target is invalid
-            Debug.Log($"Enemy {name} cannot move to invalid tile: {newTarget}");
+            Log($"Enemy {name} cannot move to invalid tile: {newTarget}");
         }
     }
 
@@ -35,9 +39,9 @@ public class EnemyMover : MonoBehaviour {
         transform.position += direction * speed * Time.deltaTime;
 
         // Stop moving when close enough to target
-        if (Vector3.Distance(transform.position, targetPosition) < 0.01f) {
+        if (Vector3.Distance(transform.position, targetPosition) < stoppingDistance) {
             isMoving = false;
-            Debug.Log($"Enemy {name} reached target: {targetPosition}");
+            Log($"Enemy {name} reached target: {targetPosition}");
         }
     }
 
@@ -46,13 +50,20 @@ public class EnemyMover : MonoBehaviour {
         Vector3Int cellPosition = tilemap.WorldToCell(worldPosition);
         TileBase tile = tilemap.GetTile(cellPosition);
         bool isValid = allowedTiles.Contains(tile); // Validate against Allowed Tiles
-        Debug.Log($"Checking tile at {worldPosition} - Valid: {isValid}");
+        Log($"Checking tile at {worldPosition} - Valid: {isValid}");
         return isValid;
     }
 
     // Stop movement if called explicitly (e.g., outside radius)
     public void StopMoving() {
         isMoving = false;
-        Debug.Log($"Enemy {name} stopped moving");
+        Log($"Enemy {name} stopped moving");
+    }
+
+    // Logs messages only if logging is enabled
+    private void Log(string message) {
+        if (logMovement) {
+            Debug.Log(message);
+        }
     }
 }
