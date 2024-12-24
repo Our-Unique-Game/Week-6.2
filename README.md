@@ -1,28 +1,52 @@
-# Unity week 5: Two-dimensional scene-building and path-finding
+# **Enemy Avoidance System - README**
 
-A project with step-by-step scenes illustrating how to construct a 2D scene using tilemaps,
-and how to do path-finding using the BFS algorithm.
+## **Overview**  
+This system makes enemies move **away from the player** when inside a specified **radius**. Movement is restricted to **allowed tiles** on the **tilemap**, and enemies prioritize avoidance points based on their **relative position** (left or right) to the **player**.
 
-Text explanations are available 
-[here](https://github.com/gamedev-at-ariel/gamedev-5782) in folder 07.
+---
 
-## Cloning
-To clone the project, you may need to install git lfs first:
+## **Features**  
+- **Dynamic Avoidance:** Enemies avoid the player based on their **position**.  
+- **Tile Validation:** Moves only on **allowed tiles**.  
+- **Configurable Settings:** Adjust radius, speed, angles, and logs in the **Inspector**.  
+- **Debugging Tools:** Enable logs for **movement**, **tile checks**, and **detection**.
 
-    git lfs install 
+---
 
+## **Scripts**
 
-## Credits
+### **EnemyAvoidance.cs (Player Script)**  
+- **Purpose:** Detects enemies and calculates avoidance points.  
+- **Key Settings:**
+  - **avoidRadius:** Avoidance detection radius.  
+  - **angleStep:** Step size for rotating to find valid tiles.  
+  - **maxAttempts:** Maximum angles to test for valid points.  
+  - **logAvoidance:** Toggle logs in the **Inspector**.
 
-Graphics:
-* [Ultima 4 Graphics](https://github.com/jahshuwaa/u4graphics) by Joshua Steele.
+### **EnemyMover.cs (Enemy Script)**  
+- **Purpose:** Moves enemies toward the target avoidance point.  
+- **Key Settings:**
+  - **speed:** Movement speed toward the target.  
+  - **stoppingDistance:** Minimum distance to stop at the target.  
+  - **logMovement:** Toggle logs in the **Inspector**.
 
-Online course:
-* [Unity 2D](https://www.udemy.com/course/unitycourse/learn/lecture/10246496), a Udemy course by Gamedev.tv.
-* [Unity RPG](https://www.gamedev.tv/p/unity-rpg/?product_id=1503859&coupon_code=JOINUS).
+---
 
-Procedural generation:
-* [Habrador - Unity Programming Patterns](https://github.com/Habrador/Unity-Programming-Patterns#7-double-buffer)
+## **How It Works**  
+1. **Enemy Detection:**  
+   - Finds enemies within the **radius** using **OverlapCircleAll**.  
+2. **Avoidance Point Calculation:**  
+   - Determines if the **enemy is on the left or right** of the **player**.  
+   - Searches for the **first valid tile** by rotating outward in steps.  
+3. **Movement:**  
+   - Moves **smoothly** to the target while **validating tiles**.
 
-Programming:
-* Erel Segal-Halevi
+---
+
+## **Setup Instructions**  
+1. Attach **EnemyAvoidance.cs** to the **Player**.  
+2. Attach **EnemyMover.cs** to each **Enemy**.  
+3. Assign **Tilemap**, **Allowed Tiles**, and **Enemy Layer** in the **Inspector**.  
+4. Adjust settings like **radius**, **angle step**, and **speed** as needed.
+
+---
